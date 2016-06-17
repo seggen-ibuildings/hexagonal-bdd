@@ -28,10 +28,10 @@
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
         "behat/behat": "^3.1",
-        "phpspec/phpspec": "^2.5",
         "phpunit/phpunit": "^5.3",
         "behat/mink-extension": "^2.2",
-        "behat/mink-goutte-driver": "^1.2"
+        "behat/mink-goutte-driver": "^1.2",
+        "mockery/mockery": "^0.9.5"
     },
     "scripts": {
         "post-install-cmd": [

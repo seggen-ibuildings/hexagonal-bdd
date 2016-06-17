@@ -33,13 +33,16 @@ Next, SSH into your Vagrant box:
 hexagonal-bdd$ vagrant ssh
 ```
 
-If you go to the `/vagrant` folder and run PHPSpec, you should see the following output:
+If you go to the `/vagrant` folder and run PHPUnit, you should see the following output:
 
 ```sh
 ~$ cd /vagrant
-/vagrant$ vendor/bin/phpspec run
-                                                                                 0
-0 specs
-0 examples
-0ms
+/vagrant$ vendor/bin/phpunit run
+PHPUnit 5.3.2 by Sebastian Bergmann and contributors.
+
+.                                                                   1 / 1 (100%)
+
+Time: 2.56 seconds, Memory: 18.00MB
+
+OK (1 test, 2 assertions)
 ```
