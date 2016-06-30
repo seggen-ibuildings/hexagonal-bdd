@@ -4,11 +4,21 @@ namespace Application\Game;
 
 class Board
 {
+    private $numberOfSymbols = 0;
+
     /**
-     * @return bool
+     * @return int
      */
-    public function isEmpty()
+    public function getNumberOfSymbols()
     {
-        return true;
+        return $this->numberOfSymbols;
+    }
+
+    /**
+     * @return void
+     */
+    public function mark()
+    {
+        $this->numberOfSymbols += 1;
     }
 }

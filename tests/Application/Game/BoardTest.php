@@ -13,7 +13,19 @@ class BoardTest extends PHPUnit_Framework_TestCase
     public function shouldStartOutEmpty()
     {
         $board = new Board();
+
+        $this->assertEquals(0, $board->getNumberOfSymbols());
+    }
+    
+    /**
+     * @test
+     */
+    public function shouldHaveSymbolsThatMarkSpaces()
+    {
+        $board = new Board();
         
-        $this->assertTrue($board->isEmpty());
+        $board->mark();
+        
+        $this->assertEquals(1, $board->getNumberOfSymbols());
     }
 }

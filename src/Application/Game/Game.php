@@ -41,4 +41,12 @@ class Game
     {
         return $this->board;
     }
+
+    /**
+     * @param Move $move
+     */
+    public function makeMove(Move $move)
+    {
+        $this->board->mark();
+    }
 }

@@ -1,8 +1,11 @@
 <?php
 
+use Application\Game\Game;
 use Application\Game\GameFactory;
 use Application\GetGameHandler;
 use Application\GetGameQuery;
+use Application\MakeMoveCommand;
+use Application\MakeMoveHandler;
 use Application\StartGameCommand;
 use Application\StartGameHandler;
 use Behat\Behat\Tester\Exception\PendingException;
@@ -11,6 +14,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Fake\FakeGameRepository;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidFactory;
 use PHPUnit_Framework_Assert as Assert;
 
@@ -52,21 +56,21 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iShouldSeeAnEmptyBoard()
     {
-        $query = new GetGameQuery();
-        $query->gameId = self::GAME_ID;
+        $result = $this->getGame();
 
-        $handler = new GetGameHandler($this->gameRepository, new UuidFactory());
-        $result = $handler->handle($query);
-
-        Assert::assertTrue($result->getBoard()->isEmpty());
+        Assert::assertEquals(0, $result->getBoard()->getNumberOfSymbols());
     }
 
     /**
-     * @Given I have started a game as player :arg1
+     * @Given I have started a game as player :playerName
      */
-    public function iHaveStartedAGameAsPlayer($arg1)
+    public function iHaveStartedAGameAsPlayer($playerName)
     {
-        throw new PendingException();
+        $gameFactory = new GameFactory();
+
+        $this->gameRepository = new FakeGameRepository([
+            $gameFactory->create(Uuid::fromString(self::GAME_ID))
+        ]);
     }
 
     /**
@@ -74,7 +78,13 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iMakeAMove()
     {
-        throw new PendingException();
+        $command = new MakeMoveCommand();
+        $command->gameId = self::GAME_ID;
+        $command->row = 1;
+        $command->column = 2;
+
+        $handler = new MakeMoveHandler(new UuidFactory(), $this->gameRepository);
+        $handler->handle($command);
     }
 
     /**
@@ -82,6 +92,22 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iShouldSeeABoardWithOneSymbolOnIt()
     {
-        throw new PendingException();
+        $result = $this->getGame();
+
+        Assert::assertEquals(1, $result->getBoard()->getNumberOfSymbols());
+    }
+
+    /**
+     * @return Game
+     */
+    private function getGame()
+    {
+        $query = new GetGameQuery();
+        $query->gameId = self::GAME_ID;
+
+        $handler = new GetGameHandler($this->gameRepository, new UuidFactory());
+        $result = $handler->handle($query);
+
+        return $result;
     }
 }

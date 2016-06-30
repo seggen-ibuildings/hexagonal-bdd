@@ -24,7 +24,7 @@ class GameTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->id = Mockery::mock(UuidInterface::class);
-        $this->board = Mockery::mock(Board::class);
+        $this->board = Mockery::spy(Board::class);
     }
 
     /**
@@ -45,5 +45,18 @@ class GameTest extends PHPUnit_Framework_TestCase
         $game = new Game($this->id, $this->board);
 
         $this->assertSame($this->board, $game->getBoard());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldMarkSpacesOnTheBoardWhenAPlayerMakesAMove()
+    {
+        $game = new Game($this->id, $this->board);
+        $move = new Move(1, 2);
+        
+        $game->makeMove($move);
+
+        $this->board->shouldHaveReceived('mark')->with();
     }
 }
