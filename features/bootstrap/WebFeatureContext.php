@@ -45,6 +45,8 @@ class WebFeatureContext implements Context, SnippetAcceptingContext
      */
     public function iShouldSeeAnEmptyBoard()
     {
-        throw new PendingException();
+        $this->minkContext->assertResponseStatus(200);
+        $this->minkContext->assertElementOnPage('div.board');
+        $this->minkContext->assertElementNotOnPage('span.symbol');
     }
 }

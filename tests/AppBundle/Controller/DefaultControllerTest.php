@@ -22,4 +22,22 @@ class DefaultControllerTest extends WebTestCase
         $this->assertCount(1, $crawler->filter('form[action$="/start"]'));
         $this->assertCount(1, $crawler->filter('form[action$="/start"] button'));
     }
+
+    /**
+     * @test
+     */
+    public function shouldStartAGame()
+    {
+        $startGameHandler = Mockery::spy(StartGameHandler::class);
+
+        $client = static::createClient();
+        $container = $client->getKernel()->getContainer();
+        $container->set('app.start_game_handler', $startGameHandler);
+
+        $client->request('POST', '/start');
+
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $startGameHandler->shouldHaveReceived('handle')
+            ->with(Mockery::type(StartGameCommand::class));
+    }
 }
