@@ -3,6 +3,7 @@ Feature: Start a new game
   As a player
   I need to be able to start a new game
 
+  @critical
   Scenario: Choose to go first
     Given I have not started a game yet
     When I start a game as player "X"
