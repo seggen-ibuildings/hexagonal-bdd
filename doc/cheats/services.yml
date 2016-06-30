@@ -1,0 +1,24 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+  app.start_game_handler:
+    class: Application\StartGameHandler
+    arguments:
+      - "@uuid.uuid_factory"
+      - "@app.game.game_factory"
+      - "@app.game.game_repository"
+
+  uuid.uuid_factory:
+    class: Ramsey\Uuid\UuidFactory
+
+  app.game.game_factory:
+    class: Application\Game\GameFactory
+
+  app.game.game_repository:
+    class: AppBundle\Repository\DoctrineGameRepository
+    factory: ["@doctrine.orm.default_entity_manager", getRepository]
+    arguments:
+      - Application\Game\Game
