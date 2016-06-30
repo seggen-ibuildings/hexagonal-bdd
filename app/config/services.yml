@@ -19,3 +19,6 @@ services:
 
   app.game.game_repository:
     class: AppBundle\Repository\DoctrineGameRepository
+    factory: ["@doctrine.orm.default_entity_manager", getRepository]
+    arguments:
+      - Application\Game\Game

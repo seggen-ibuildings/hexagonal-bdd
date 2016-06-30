@@ -4,10 +4,11 @@ namespace AppBundle\Repository;
 
 use Application\Game\Game;
 use Application\Game\GameRepository;
+use Doctrine\ORM\EntityRepository;
 use Ramsey\Uuid\UuidInterface;
 use RuntimeException;
 
-class DoctrineGameRepository implements GameRepository
+class DoctrineGameRepository extends EntityRepository implements GameRepository
 {
     /**
      * @param UuidInterface $id
@@ -16,7 +17,7 @@ class DoctrineGameRepository implements GameRepository
      */
     public function get(UuidInterface $id)
     {
-        // TODO: Implement get() method.
+        return $this->find($id);
     }
 
     /**
