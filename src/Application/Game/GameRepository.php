@@ -13,4 +13,9 @@ interface GameRepository
      * @throws RuntimeException if game was not found
      */
     public function get(UuidInterface $id);
+
+    /**
+     * @param Game $game
+     */
+    public function add(Game $game);
 }

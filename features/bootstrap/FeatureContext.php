@@ -1,5 +1,6 @@
 <?php
 
+use Application\Game\GameFactory;
 use Application\GetGameHandler;
 use Application\GetGameQuery;
 use Application\StartGameCommand;
@@ -42,7 +43,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
         $command->gameId = self::GAME_ID;
         $command->playerName = $playerName;
 
-        $handler = new StartGameHandler();
+        $handler = new StartGameHandler(new UuidFactory(), new GameFactory(), $this->gameRepository);
         $handler->handle($command);
     }
 

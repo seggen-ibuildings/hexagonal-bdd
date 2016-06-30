@@ -10,7 +10,7 @@ use RuntimeException;
 class FakeGameRepository implements GameRepository
 {
     /**
-     * @var array
+     * @var Game[]
      */
     private $games;
 
@@ -36,5 +36,13 @@ class FakeGameRepository implements GameRepository
         }
 
         throw new RuntimeException("Game with ID '{$id}' was not found");
+    }
+
+    /**
+     * @param Game $game
+     */
+    public function add(Game $game)
+    {
+        $this->games[] = $game;
     }
 }
