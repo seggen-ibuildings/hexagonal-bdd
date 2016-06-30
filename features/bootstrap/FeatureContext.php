@@ -1,5 +1,6 @@
 <?php
 
+use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
@@ -11,13 +12,26 @@ use Behat\Gherkin\Node\TableNode;
 class FeatureContext implements Context, SnippetAcceptingContext
 {
     /**
-     * Initializes context.
-     *
-     * Every scenario gets its own context instance.
-     * You can also pass arbitrary arguments to the
-     * context constructor through behat.yml.
+     * @Given I have not started a game yet
      */
-    public function __construct()
+    public function iHaveNotStartedAGameYet()
     {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I start a game as player :arg1
+     */
+    public function iStartAGameAsPlayer($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see an empty board
+     */
+    public function iShouldSeeAnEmptyBoard()
+    {
+        throw new PendingException();
     }
 }
