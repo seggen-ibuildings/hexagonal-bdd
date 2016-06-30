@@ -46,3 +46,5 @@ Time: 2.56 seconds, Memory: 18.00MB
 
 OK (1 test, 2 assertions)
 ```
+
+Finally, check to see if you can load the code into your favorite editor, because there will be a lot of coding.
