@@ -5,6 +5,7 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use Fake\FakeGameRepository;
 
 /**
  * Defines application features from the specific context.
@@ -12,11 +13,16 @@ use Behat\Gherkin\Node\TableNode;
 class FeatureContext implements Context, SnippetAcceptingContext
 {
     /**
+     * @var FakeGameRepository
+     */
+    private $gameRepository;
+
+    /**
      * @Given I have not started a game yet
      */
     public function iHaveNotStartedAGameYet()
     {
-        throw new PendingException();
+        $this->gameRepository = new FakeGameRepository([]);
     }
 
     /**
