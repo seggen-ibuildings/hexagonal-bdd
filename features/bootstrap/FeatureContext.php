@@ -1,5 +1,7 @@
 <?php
 
+use Application\GetGameHandler;
+use Application\GetGameQuery;
 use Application\StartGameCommand;
 use Application\StartGameHandler;
 use Behat\Behat\Tester\Exception\PendingException;
@@ -8,13 +10,15 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Fake\FakeGameRepository;
+use Ramsey\Uuid\UuidFactory;
+use PHPUnit_Framework_Assert as Assert;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext implements Context, SnippetAcceptingContext
 {
-    const GAME_ID = '1234';
+    const GAME_ID = '123e4567-e89b-12d3-a456-426655440000';
 
     /**
      * @var FakeGameRepository
@@ -47,6 +51,12 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iShouldSeeAnEmptyBoard()
     {
-        throw new PendingException();
+        $query = new GetGameQuery();
+        $query->gameId = self::GAME_ID;
+
+        $handler = new GetGameHandler($this->gameRepository, new UuidFactory());
+        $result = $handler->handle($query);
+
+        Assert::assertTrue($result->getBoard()->isEmpty());
     }
 }
