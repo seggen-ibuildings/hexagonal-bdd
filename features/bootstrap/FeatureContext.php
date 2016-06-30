@@ -1,5 +1,7 @@
 <?php
 
+use Application\StartGameCommand;
+use Application\StartGameHandler;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
@@ -12,6 +14,8 @@ use Fake\FakeGameRepository;
  */
 class FeatureContext implements Context, SnippetAcceptingContext
 {
+    const GAME_ID = '1234';
+
     /**
      * @var FakeGameRepository
      */
@@ -26,11 +30,16 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @When I start a game as player :arg1
+     * @When I start a game as player :playerName
      */
-    public function iStartAGameAsPlayer($arg1)
+    public function iStartAGameAsPlayer($playerName)
     {
-        throw new PendingException();
+        $command = new StartGameCommand();
+        $command->gameId = self::GAME_ID;
+        $command->playerName = $playerName;
+
+        $handler = new StartGameHandler();
+        $handler->handle($command);
     }
 
     /**
