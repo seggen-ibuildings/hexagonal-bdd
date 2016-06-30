@@ -60,4 +60,28 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
         Assert::assertTrue($result->getBoard()->isEmpty());
     }
+
+    /**
+     * @Given I have started a game as player :arg1
+     */
+    public function iHaveStartedAGameAsPlayer($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I make a move
+     */
+    public function iMakeAMove()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see a board with one symbol on it
+     */
+    public function iShouldSeeABoardWithOneSymbolOnIt()
+    {
+        throw new PendingException();
+    }
 }

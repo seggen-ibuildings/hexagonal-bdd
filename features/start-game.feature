@@ -7,3 +7,8 @@ Feature: Start a new game
     Given I have not started a game yet
     When I start a game as player "X"
     Then I should see an empty board
+
+  Scenario: Make a move
+    Given I have started a game as player "X"
+    When I make a move
+    Then I should see a board with one symbol on it
