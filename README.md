@@ -37,7 +37,7 @@ If you go to the `/vagrant` folder and run PHPUnit, you should see the following
 
 ```sh
 ~$ cd /vagrant
-/vagrant$ vendor/bin/phpunit run
+/vagrant$ vendor/bin/phpunit
 PHPUnit 5.3.2 by Sebastian Bergmann and contributors.
 
 .                                                                   1 / 1 (100%)
